@@ -1,0 +1,62 @@
+org: renantafner
+app: aws-node-express-dynamodb-api
+service: aws-node-express-dynamodb-api
+frameworkVersion: '3'
+
+custom:
+  enquetesTableName: 'enquetes-table-dev-four-${sls:stage}'
+  proxIdTableName: 'prox-id-table-dev-four-${sls:stage}'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [ EnquetesTable, Arn ]
+            - Fn::GetAtt: [ ProxIdTable, Arn ]
+  environment:
+    ENQUETES_TABLE: ${self:custom.enquetesTableName}
+    PROX_ID_TABLE: ${self:custom.proxIdTableName}
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi: '*'
+
+resources:
+  Resources:
+    EnquetesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: enqueteId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: enqueteId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.enquetesTableName}
+    ProxIdTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: table
+            AttributeType: S
+        KeySchema:
+          - AttributeName: table
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.proxIdTableName}
+      
+  
