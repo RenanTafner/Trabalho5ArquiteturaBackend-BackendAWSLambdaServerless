@@ -32,8 +32,8 @@ app.get("/enquetes/:enquetesId", async function (req, res) {
   try {
     const { Item } = await dynamoDbClient.send(new GetCommand(params));
     if (Item) {
-      const { enqueteId, enqueteNome,enqueteQuantVotos } = Item;
-      res.json({ enqueteId, enqueteNome,enqueteQuantVotos});
+      const { enqueteId, enqueteNome,enqueteQuantVotosSim,enqueteQuantVotosNao } = Item;
+      res.json({ enqueteId, enqueteNome,enqueteQuantVotosSim,enqueteQuantVotosNao});
     } else {
       res
         .status(404)
@@ -49,8 +49,8 @@ app.get("/enquetes/:enquetesId", async function (req, res) {
 app.post("/enquetes", async function (req, res) {
   const { enqueteNomeInsert } = req.body;
 
-  enquetesVotosAux = 0;
-
+  enquetesVotosSimAux = 0;
+  enquetesVotosNaoAux = 0;
 
   const paramsProxId = {
     TableName: PROX_ID_TABLE,
@@ -114,7 +114,8 @@ await dynamoDbClient.send(new UpdateCommand(paramsProxIdAux));
     Item: {
       enqueteId: proxEnqueteIdAux + '',
       enqueteNome: enqueteNomeInsert,
-      enqueteQuantVotos : enquetesVotosAux,
+      enqueteQuantVotosSim : enquetesVotosSimAux,
+      enqueteQuantVotosNao : enquetesVotosNaoAux,
     },
   };
 
@@ -122,7 +123,9 @@ await dynamoDbClient.send(new UpdateCommand(paramsProxIdAux));
     await dynamoDbClient.send(new PutCommand(params));
     res.json({ enqueteId:proxEnqueteIdAux, 
       enqueteNome:enqueteNomeInsert,
-      enqueteQuantVotos:enquetesVotosAux});
+      enqueteQuantVotosSim:enquetesVotosSimAux,
+      enqueteQuantVotosNao : enquetesVotosNaoAux,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ erro: "Não foi possível criar a enquete : " + error });
@@ -136,7 +139,7 @@ app.get("/enquetes", async function (req, res) {
   try {
 
   const command = new ScanCommand({
-    ProjectionExpression: "enqueteId, enqueteNome,enqueteQuantVotos",
+    ProjectionExpression: "enqueteId, enqueteNome,enqueteQuantVotosSim,enqueteQuantVotosNao",
     TableName: ENQUETES_TABLE,
   });
 
@@ -147,7 +150,7 @@ app.get("/enquetes", async function (req, res) {
     scanResults.push(enquete);
   });
 
-  res.json({ results:scanResults});
+  res.json(scanResults);
 
 }catch(error){
   console.log(error);
@@ -157,7 +160,7 @@ app.get("/enquetes", async function (req, res) {
 });
 
 
-app.patch("/enquetes/votar/:enquetesId", async function (req, res) {
+app.patch("/enquetes/votarsim/:enquetesId", async function (req, res) {
 
   enqueteIdVoto = req.params.enquetesId;
 
@@ -171,10 +174,10 @@ app.patch("/enquetes/votar/:enquetesId", async function (req, res) {
   try {
     const { Item } = await dynamoDbClient.send(new GetCommand(params));
     if (Item) {
-      const { enqueteId, enqueteNome,enqueteQuantVotos } = Item;
+      const { enqueteId, enqueteNome,enqueteQuantVotosSim,enqueteQuantVotosNao } = Item;
       
 
-      var enqueteQuantVotosAux = enqueteQuantVotos + 1;
+      var enqueteQuantVotosSimAux = enqueteQuantVotosSim + 1;
 
       const paramsAux = {
         TableName: ENQUETES_TABLE,
@@ -182,9 +185,9 @@ app.patch("/enquetes/votar/:enquetesId", async function (req, res) {
           enqueteId: enqueteId,
         },
         UpdateExpression:
-            'set enqueteQuantVotos = :enqueteQuantVotosAux',
+            'set enqueteQuantVotosSim = :enqueteQuantVotosSimAux',
         ExpressionAttributeValues: {
-            ':enqueteQuantVotosAux': enqueteQuantVotosAux,
+            ':enqueteQuantVotosSimAux': enqueteQuantVotosSimAux,
         },
         ReturnValues: "ALL_NEW"
     };
@@ -193,15 +196,72 @@ app.patch("/enquetes/votar/:enquetesId", async function (req, res) {
 
 
       res.json({ enqueteId, enqueteNome,
-        enqueteQuantVotos: enqueteQuantVotosAux});
+        enqueteQuantVotosSim: enqueteQuantVotosSimAux,
+        enqueteQuantVotosNao: enqueteQuantVotosNao,
+      });
     } else {
       res
         .status(404)
-        .json({ error: "Náo foi possível achar a enquete com o id " + enqueteIdVoto +" para votar nela" });
+        .json({ error: "Náo foi possível achar a enquete com o id " + enqueteIdVoto +" para votar SIM nela" });
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ erro: "Não foi possível votar na enquete de id " + enqueteIdVoto +" : " + error });
+    res.status(500).json({ erro: "Não foi possível votar SIM na enquete de id " + enqueteIdVoto +" : " + error });
+  }
+
+
+});
+
+
+
+
+app.patch("/enquetes/votarnao/:enquetesId", async function (req, res) {
+
+  enqueteIdVoto = req.params.enquetesId;
+
+  const params = {
+    TableName: ENQUETES_TABLE,
+    Key: {
+      enqueteId: enqueteIdVoto,
+    },
+  };
+
+  try {
+    const { Item } = await dynamoDbClient.send(new GetCommand(params));
+    if (Item) {
+      const { enqueteId, enqueteNome,enqueteQuantVotosSim ,enqueteQuantVotosNao } = Item;
+      
+
+      var enqueteQuantVotosNaoAux = enqueteQuantVotosNao + 1;
+
+      const paramsAux = {
+        TableName: ENQUETES_TABLE,
+        Key: {
+          enqueteId: enqueteId,
+        },
+        UpdateExpression:
+            'set enqueteQuantVotosNao = :enqueteQuantVotosNaoAux',
+        ExpressionAttributeValues: {
+            ':enqueteQuantVotosNaoAux': enqueteQuantVotosNaoAux,
+        },
+        ReturnValues: "ALL_NEW"
+    };
+
+    await dynamoDbClient.send(new UpdateCommand(paramsAux));
+
+
+      res.json({ enqueteId, enqueteNome,
+        enqueteQuantVotosSim: enqueteQuantVotosSim,
+        enqueteQuantVotosNao:enqueteQuantVotosNaoAux,
+      });
+    } else {
+      res
+        .status(404)
+        .json({ error: "Náo foi possível achar a enquete com o id " + enqueteIdVoto +" para votar NÃO nela" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ erro: "Não foi possível votar NÃO na enquete de id " + enqueteIdVoto +" : " + error });
   }
 
 

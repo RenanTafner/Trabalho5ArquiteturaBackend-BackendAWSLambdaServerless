@@ -39,8 +39,8 @@
         }
       },
       "environment": {
-        "ENQUETES_TABLE": "enquetes-table-dev-four-dev",
-        "PROX_ID_TABLE": "prox-id-table-dev-four-dev"
+        "ENQUETES_TABLE": "enquetes-table-dev-five-dev",
+        "PROX_ID_TABLE": "prox-id-table-dev-five-dev"
       },
       "stage": "dev",
       "region": "us-east-1",
@@ -258,7 +258,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-node-express-dynamodb-api/dev/1693614065109-2023-09-02T00:21:05.109Z/aws-node-express-dynamodb-api.zip"
+                "S3Key": "serverless/aws-node-express-dynamodb-api/dev/1693690645419-2023-09-02T21:37:25.419Z/aws-node-express-dynamodb-api.zip"
               },
               "Handler": "s_api.handler",
               "Runtime": "nodejs18.x",
@@ -267,8 +267,8 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "ENQUETES_TABLE": "enquetes-table-dev-four-dev",
-                  "PROX_ID_TABLE": "prox-id-table-dev-four-dev"
+                  "ENQUETES_TABLE": "enquetes-table-dev-five-dev",
+                  "PROX_ID_TABLE": "prox-id-table-dev-five-dev"
                 }
               },
               "Role": {
@@ -282,14 +282,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionmSjk1VyquM3AlkDKiDbAZKyzEc3rCIDRcGtc5SguNA": {
+          "ApiLambdaVersionAAA26mEQeimKoSwqCnMU5PdBugbuWf8jK1jETZk71sk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "ySVt6qk+7/we9EVJcGFy81bA5AJXuUMWMD608E5EeGU="
+              "CodeSha256": "40N7cW4rbdV4F0eM9Sp3QNurynvZx2SpT6DsOaUlWCA="
             }
           },
           "HttpApi": {
@@ -416,7 +416,7 @@
                 }
               ],
               "BillingMode": "PAY_PER_REQUEST",
-              "TableName": "enquetes-table-dev-four-dev"
+              "TableName": "enquetes-table-dev-five-dev"
             }
           },
           "ProxIdTable": {
@@ -435,7 +435,7 @@
                 }
               ],
               "BillingMode": "PAY_PER_REQUEST",
-              "TableName": "prox-id-table-dev-four-dev"
+              "TableName": "prox-id-table-dev-five-dev"
             }
           },
           "CWLSubFilterApiLogGroupUsEast1": {
@@ -482,7 +482,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionmSjk1VyquM3AlkDKiDbAZKyzEc3rCIDRcGtc5SguNA"
+              "Ref": "ApiLambdaVersionAAA26mEQeimKoSwqCnMU5PdBugbuWf8jK1jETZk71sk"
             },
             "Export": {
               "Name": "sls-aws-node-express-dynamodb-api-dev-ApiLambdaFunctionQualifiedArn"
@@ -614,8 +614,8 @@
       "vpc": {}
     },
     "custom": {
-      "enquetesTableName": "enquetes-table-dev-four-dev",
-      "proxIdTableName": "prox-id-table-dev-four-dev"
+      "enquetesTableName": "enquetes-table-dev-five-dev",
+      "proxIdTableName": "prox-id-table-dev-five-dev"
     },
     "pluginsData": {},
     "functions": {
@@ -633,7 +633,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionmSjk1VyquM3AlkDKiDbAZKyzEc3rCIDRcGtc5SguNA"
+        "versionLogicalId": "ApiLambdaVersionAAA26mEQeimKoSwqCnMU5PdBugbuWf8jK1jETZk71sk"
       }
     },
     "resources": {
@@ -654,7 +654,7 @@
               }
             ],
             "BillingMode": "PAY_PER_REQUEST",
-            "TableName": "enquetes-table-dev-four-dev"
+            "TableName": "enquetes-table-dev-five-dev"
           }
         },
         "ProxIdTable": {
@@ -673,7 +673,7 @@
               }
             ],
             "BillingMode": "PAY_PER_REQUEST",
-            "TableName": "prox-id-table-dev-four-dev"
+            "TableName": "prox-id-table-dev-five-dev"
           }
         }
       },
@@ -706,10 +706,10 @@
     "isDashboardAppPreconfigured": true,
     "orgUid": "77a51563-04f3-4132-80c8-a29c8852d926",
     "appUid": "hwXJW9WzDcx3SrBMsZ",
-    "artifact": "C:\\TrabalhosPosArquiteturaSoftware\\Trbalho Final AWS Lambda backend\\aws-node-express-dynamodb-api\\.serverless\\aws-node-express-dynamodb-api.zip"
+    "artifact": "C:\\TrabalhosPosArquiteturaSoftware\\Trbalho Final AWS Lambda backend\\TrabalhoFinalAWSLambdaGit\\.serverless\\aws-node-express-dynamodb-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/aws-node-express-dynamodb-api/dev/1693614065109-2023-09-02T00:21:05.109Z",
+    "artifactDirectoryName": "serverless/aws-node-express-dynamodb-api/dev/1693690645419-2023-09-02T21:37:25.419Z",
     "artifact": "aws-node-express-dynamodb-api.zip"
   }
 }
