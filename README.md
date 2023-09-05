@@ -1,6 +1,6 @@
 # Trabalho Final Disciplina Arquitetura Backend
 
-## Middleware em GraphQL
+## Backend em AWS Lambda Serverless
 
 Integrantes do grupo:
 
@@ -8,4 +8,6 @@ Integrantes do grupo:
 * Raife Ferreira Paiva;
 * Renan Carlos Silva Braz Tafner.
 
-Parar rodar, basta rodar o comando "node index.js" na pasta raíz do projeto.
+Aplicação já hospedada utilizando o site do Serverless e a AWS Lambda no link:
+
+https://2knh0oc42g.execute-api.us-east-1.amazonaws.com
