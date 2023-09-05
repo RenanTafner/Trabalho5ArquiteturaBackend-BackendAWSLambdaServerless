@@ -233,7 +233,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-node-express-dynamodb-api/dev/1693690645419-2023-09-02T21:37:25.419Z/aws-node-express-dynamodb-api.zip"
+          "S3Key": "serverless/aws-node-express-dynamodb-api/dev/1693955222180-2023-09-05T23:07:02.180Z/aws-node-express-dynamodb-api.zip"
         },
         "Handler": "s_api.handler",
         "Runtime": "nodejs18.x",
@@ -242,8 +242,8 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "ENQUETES_TABLE": "enquetes-table-dev-five-dev",
-            "PROX_ID_TABLE": "prox-id-table-dev-five-dev"
+            "ENQUETES_TABLE": "enquetes-table-dev-last-version-dev",
+            "PROX_ID_TABLE": "prox-id-table-dev-last-version-dev"
           }
         },
         "Role": {
@@ -257,14 +257,14 @@
         "ApiLogGroup"
       ]
     },
-    "ApiLambdaVersionAAA26mEQeimKoSwqCnMU5PdBugbuWf8jK1jETZk71sk": {
+    "ApiLambdaVersionE1Szlg8gPNdWdRKDXsHofDz8NbzeicYDoON5GEHln4Q": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "40N7cW4rbdV4F0eM9Sp3QNurynvZx2SpT6DsOaUlWCA="
+        "CodeSha256": "2Hn5hRCQkGFy/ok7t8wSTrp5j058FVxJnMQwiDvJ+ho="
       }
     },
     "HttpApi": {
@@ -394,7 +394,7 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "enquetes-table-dev-five-dev"
+        "TableName": "enquetes-table-dev-last-version-dev"
       }
     },
     "ProxIdTable": {
@@ -413,7 +413,7 @@
           }
         ],
         "BillingMode": "PAY_PER_REQUEST",
-        "TableName": "prox-id-table-dev-five-dev"
+        "TableName": "prox-id-table-dev-last-version-dev"
       }
     },
     "CWLSubFilterApiLogGroupUsEast1": {
@@ -460,7 +460,7 @@
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersionAAA26mEQeimKoSwqCnMU5PdBugbuWf8jK1jETZk71sk"
+        "Ref": "ApiLambdaVersionE1Szlg8gPNdWdRKDXsHofDz8NbzeicYDoON5GEHln4Q"
       },
       "Export": {
         "Name": "sls-aws-node-express-dynamodb-api-dev-ApiLambdaFunctionQualifiedArn"
