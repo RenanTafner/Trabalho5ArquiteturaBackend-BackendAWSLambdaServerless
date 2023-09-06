@@ -4,8 +4,8 @@ service: aws-node-express-dynamodb-api
 frameworkVersion: '3'
 
 custom:
-  enquetesTableName: 'enquetes-table-dev-latest-version-${sls:stage}'
-  proxIdTableName: 'prox-id-table-dev-latest-version-${sls:stage}'
+  enquetesTableName: 'enquetes-table-dev-definitive-version-${sls:stage}'
+  proxIdTableName: 'prox-id-table-dev-definitive-version-${sls:stage}'
 
 provider:
   name: aws
