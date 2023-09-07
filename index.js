@@ -94,7 +94,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 /**
  * @swagger
  * /enquetes/{id}:
- *   post:
+ *   get:
  *     summary: Recupera uma enquete existente.
  *     parameters:
  *       - in: path
@@ -110,7 +110,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
  *         description: Enquete náo encontrada.
  *       500:
  *         description: Erro ao recuperar a enquete.
- 
+ */
+
 /**
  * @swagger
  * /enquetes/votarsim/{id}:
