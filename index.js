@@ -21,6 +21,138 @@ app.use(express.json());
 
 var proxEnqueteId = 0;
 
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API de Votação de Enquetes',
+      version: '1.0.0',
+      description: 'API de Votação de enquetes em tempo real',
+    },
+  },
+  apis: ['./index.js'],
+};
+
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Enquete:
+ *       type: object
+ *       properties:
+ *         enqueteId:
+ *           type: string
+ *           description: ID da enquete
+ *         enqueteNome:
+ *           type: string
+ *           description: Nome/pergunta da enquete
+ *         enqueteQuantVotosSim:
+ *           type: integer
+ *           description: Quantidade de votos Sim da enquete
+ *         enqueteQuantVotosNao:
+ *           type: integer
+ *           description: Quantidade de votos Nao da enquete
+ *     EnqueteDto:
+ *       type: object
+ *       properties:
+ *         enqueteNomeInsert:
+ *           type: string
+ *           description: Nome/pergunta da enquete que se quer cadastrar
+ */
+
+/**
+ * @swagger
+ * /enquetes:
+ *   get:
+ *     summary: Retorna todos as enquetes cadastradas.
+ *     responses:
+ *       200:
+ *         description: Lista de enquetes.
+ *       500:
+ *         description: Erro ao recuperar a lista de enquetes.
+ *   post:
+ *     summary: Cria uma nova enquete.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/EnqueteDto'
+ *     responses:
+ *       200:
+ *         description: Enquete cadastrada com sucesso.
+ *       500:
+ *         description: Erro ao cadastrar a enquete.
+ */
+
+/**
+ * @swagger
+ * /enquetes/{id}:
+ *   post:
+ *     summary: Recupera uma enquete existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da enquete a ser recuperada.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Enquete recuperada com sucesso.
+ *       404:
+ *         description: Enquete náo encontrada.
+ *       500:
+ *         description: Erro ao recuperar a enquete.
+ 
+/**
+ * @swagger
+ * /enquetes/votarsim/{id}:
+ *   patch:
+ *     summary: Votar Sim para uma enquete existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da enquete a ser votado Sim.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Voto Sim aplicado na enquete com sucesso.
+ *       404:
+ *         description: Enquete náo encontrada para votar Sim nela.
+ *       500:
+ *         description: Erro ao votar Sim para a enquete.
+ */
+
+/**
+ * @swagger
+ * /enquetes/votarnao/{id}:
+ *   patch:
+ *     summary: Votar Nao para uma enquete existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da enquete a ser votado Nao.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Voto Nao aplicado na enquete com sucesso.
+ *       404:
+ *         description: Enquete náo encontrada para votar Nao nela.
+ *       500:
+ *         description: Erro ao votar Nao para a enquete.
+ */
+
 app.get("/enquetes/:enquetesId", async function (req, res) {
   const params = {
     TableName: ENQUETES_TABLE,
