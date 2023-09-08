@@ -70,7 +70,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
  * @swagger
  * /enquetes:
  *   get:
- *     summary: Retorna todos as enquetes cadastradas.
+ *     summary: Retorna todas as enquetes cadastradas.
  *     responses:
  *       200:
  *         description: Lista de enquetes.
