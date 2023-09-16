@@ -10,6 +10,10 @@
 * Raife Ferreira Paiva;
 * Renan Carlos Silva Braz Tafner.
 
+Link da documentação geral de todas as camadas da aplicação:
+
+https://github.com/votacao-tempo-real
+
 Aplicação já hospedada utilizando o site do Serverless e a AWS Lambda no link:
 
 https://2knh0oc42g.execute-api.us-east-1.amazonaws.com
