@@ -22,6 +22,8 @@ API documentada pelo Swagger no link:
 
 https://2knh0oc42g.execute-api.us-east-1.amazonaws.com/api-docs
 
+Observação: A lógica da documentação da API pelo Swagger foi implementada no arquivo "index.js" deste projeto.
+
 ## Endpoints:
 
 Para recuperar todos as enquetes (GET):
